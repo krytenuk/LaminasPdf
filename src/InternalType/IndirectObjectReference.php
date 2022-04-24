@@ -12,6 +12,7 @@ namespace LaminasPdf\InternalType;
 
 use LaminasPdf as Pdf;
 use LaminasPdf\Exception;
+use LaminasPdf\InternalType\IndirectObjectReference\Context;
 
 /**
  * PDF file 'reference' element implementation
@@ -35,21 +36,21 @@ class IndirectObjectReference extends AbstractTypeObject
      *
      * @var integer
      */
-    private $_objNum;
+    private int $_objNum;
 
     /**
      * Generation number
      *
      * @var integer
      */
-    private $_genNum;
+    private int $_genNum;
 
     /**
      * Reference context
      *
-     * @var \LaminasPdf\InternalType\IndirectObjectReference\Context
+     * @var Context
      */
-    private $_context;
+    private Context $_context;
 
 
     /**
@@ -73,8 +74,8 @@ class IndirectObjectReference extends AbstractTypeObject
      * @param \LaminasPdf\ObjectFactory $factory
      * @throws \LaminasPdf\Exception\ExceptionInterface
      */
-    public function __construct($objNum,
-                                $genNum = 0,
+    public function __construct(int $objNum,
+                                int $genNum,
                                 IndirectObjectReference\Context $context,
                                 Pdf\ObjectFactory $factory)
     {
@@ -86,7 +87,7 @@ class IndirectObjectReference extends AbstractTypeObject
         }
 
         $this->_objNum = $objNum;
-        $this->_genNum = $genNum;
+        $this->_genNum = $genNum ? $genNum : 0;
         $this->_ref = null;
         $this->_context = $context;
         $this->_factory = $factory;
